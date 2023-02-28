@@ -10,7 +10,9 @@ function hitungLuasLingkaran($jari_jari)
     return $luas;
 }
 echo "jari-jari = $jari_jari <br/>";
-echo "Keliling = $luas";
+echo "Keliling = $luas <br/>";
+echo "<hr>";
+
 
 echo "<h4>Menghitung Luas Lingkaran</h4>";
 function hitungKelilingLingkaran($jari_jari)
@@ -19,4 +21,5 @@ function hitungKelilingLingkaran($jari_jari)
     return $keliling;
 }
 echo "jari-jari = $jari_jari <br/>";
-echo "Keliling = $keliling";
+echo "Keliling = $keliling <br/>";
+echo "<hr>";
