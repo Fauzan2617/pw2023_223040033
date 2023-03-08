@@ -11,4 +11,4 @@ function tampilkanAngka($jumlah)
 }
 
 // Memanggil function untuk menampilkan angka
-tampilkanAngka(5);
+tampilkanAngka(jumlah: 5);
