@@ -1,3 +1,31 @@
+<?php
+require 'functions.php';
+
+if (isset($_POST["login"])) {
+
+  $username = $_POST["username"];
+  $password = $_POST["password"];
+
+  $result = mysqli_query($conn, "SELECT * FROM user WHERE username = '$username'");
+
+  // cek username
+  if (mysqli_num_rows($result) === 1) {
+
+    // cek password
+    $row = mysqli_fetch_assoc($result);
+    if (password_verify($password, $row["password"])) {
+      header("Location: ../Main Web/index.php");
+      exit;
+    }
+  }
+
+  $error = true;
+}
+
+?>
+
+
+
 <!doctype html>
 <html lang="en">
 
@@ -22,14 +50,18 @@
                   <img src="../src/assets/images/logos/logo-puskesmas.png" width="100" alt="">
                 </a>
                 <p class="text-center">SehatPlus</p>
-                <form>
+                <?php if (isset($error)) : ?>
+                  <p style="color: red; font-style: italic;">username / password salah</p>
+                <?php endif; ?>
+
+                <form action="" method="post">
                   <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Username</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" name="username" class="form-control" id="username" aria-describedby="emailHelp">
                   </div>
                   <div class="mb-4">
-                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" id="password">
                   </div>
                   <div class="d-flex align-items-center justify-content-between mb-4">
                     <div class="form-check">
@@ -40,7 +72,7 @@
                     </div>
                     <a class="text-primary fw-bold" href="../src/php/index.php">Forgot Password ?</a>
                   </div>
-                  <a href="./index.php" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign In</a>
+                  <button class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2" name="login" type="submit">Sign In</button>
                   <div class="d-flex align-items-center justify-content-center">
                     <p class="fs-4 mb-0 fw-bold">BuatAkun</p>
                     <a class="text-primary fw-bold ms-2" href="./authentication-register.php">Create an account</a>
