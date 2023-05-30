@@ -8,6 +8,8 @@ function registrasi($data)
 
     $username = strtolower(stripslashes($data["username"]));
     $email = strtolower(stripslashes($data["email"]));
+    $alamat = strtolower(stripslashes($data["alamat"]));
+    $nomor_telepon = strtolower(stripslashes($data["nomor_telepon"]));
     $password = mysqli_real_escape_string($conn, $data["password1"]);
     $password2 = mysqli_real_escape_string($conn, $data["password2"]);
 
@@ -34,7 +36,7 @@ function registrasi($data)
     $password = password_hash($password, PASSWORD_DEFAULT);
 
     // tambahkan userbaru ke database
-    mysqli_query($conn, "INSERT INTO user VALUES(NULL, '$username','email', '$password')");
+    mysqli_query($conn, "INSERT INTO user VALUES( '$username','$alamat','$email','$nomor_telepon', NULL,'$password')");
 
     return mysqli_affected_rows($conn);
 }

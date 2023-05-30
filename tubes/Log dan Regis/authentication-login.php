@@ -1,12 +1,55 @@
 <?php
-require 'functions.php';
+session_start();
+require '../functions.php';
+
+if (isset($_SESSION["login"])) {
+  header("Location:../Main Web");
+  exit;
+}
+
+
+if (isset($_POST["user"])) {
+
+  $username = $_POST["username"];
+  $password = $_POST["password"];
+  $result = mysqli_query($conn, "SELECT * FROM user WHERE username = '$username'");
+
+  $row = mysqli_fetch_assoc($result);
+
+  // Mengambil data ke dalam variabel
+  $username = $row["username"];
+  $email = $row["email"];
+  $alamat = $row["alamat"];
+  $no_telepon = $row["nomor_telepon"];
+
+  // Menyimpan data ke dalam session
+  $_SESSION["username"] = $username;
+  $_SESSION["email"] = $email;
+  $_SESSION["alamat"] = $alamat;
+  $_SESSION["nomor_telepon"] = $no_telepon;
+  header("Location: ../user/halamanuser.php");
+  exit;
+}
+
+
 
 if (isset($_POST["login"])) {
 
   $username = $_POST["username"];
   $password = $_POST["password"];
 
+
+
+  // Memeriksa apakah username dan password sesuai
+  if ($username === 'Admin' && $password === '12345') {
+    // Jika sesuai, alihkan ke halaman admin dashboard
+    header('Location: ../Dashboard');
+    exit();
+  };
+
+
   $result = mysqli_query($conn, "SELECT * FROM user WHERE username = '$username'");
+
 
   // cek username
   if (mysqli_num_rows($result) === 1) {
@@ -14,7 +57,21 @@ if (isset($_POST["login"])) {
     // cek password
     $row = mysqli_fetch_assoc($result);
     if (password_verify($password, $row["password"])) {
-      header("Location: ../Main Web/index.php");
+      // Mengambil data ke dalam variabel
+      $username = $row["username"];
+      $email = $row["email"];
+      $alamat = $row["alamat"];
+      $no_telepon = $row["nomor_telepon"];
+
+      // Menyimpan data ke dalam session
+      $_SESSION["username"] = $username;
+      $_SESSION["email"] = $email;
+      $_SESSION["nomor_telepon"] = $no_telepon;
+      $_SESSION["alamat"] = $alamat;
+      $_SESSION["login"] = true;
+      header("Location: ../Main Web");
+
+
       exit;
     }
   }
@@ -67,12 +124,12 @@ if (isset($_POST["login"])) {
                     <div class="form-check">
                       <input class="form-check-input primary" type="checkbox" value="" id="flexCheckChecked" checked>
                       <label class="form-check-label text-dark" for="flexCheckChecked">
-                        Remeber this Device
+                        Remember this Device
                       </label>
                     </div>
                     <a class="text-primary fw-bold" href="../src/php/index.php">Forgot Password ?</a>
                   </div>
-                  <button class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2" name="login" type="submit">Sign In</button>
+                  <button class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2" name="login" name="user" type="submit">Sign In</button>
                   <div class="d-flex align-items-center justify-content-center">
                     <p class="fs-4 mb-0 fw-bold">BuatAkun</p>
                     <a class="text-primary fw-bold ms-2" href="./authentication-register.php">Create an account</a>

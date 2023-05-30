@@ -250,9 +250,10 @@ button[class^="navbar"]:hover {
 }
 .search-icon {
   display: block;
-  width: 27px;
-  margin-right: 1rem;
+  width: 30px;
+  margin-left: 1rem;
 }
+
 .search-control::-webkit-input-placeholder {
   color: var(--light-gray);
 }
@@ -277,6 +278,9 @@ button[class^="navbar"]:hover {
 }
 
 /* header inner */
+.ul li color-account {
+  color: black !important;
+}
 .header-inner {
   padding-top: 16rem;
 }

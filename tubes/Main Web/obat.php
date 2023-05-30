@@ -51,6 +51,9 @@
           <li class="nav-item px-2">
             <a class="nav-link active color-text" href="#footer">Contact</a>
           </li>
+          <li class="nav-item px-2">
+            <strong> <a class="nav-link active text-black" href="../user/halamanuser.php"> <span class="text-warning">Your</span> Account</a></strong>
+          </li>
         </ul>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
@@ -90,7 +93,7 @@
                   <p class="card-text text-center">
                     <strong>Rp30.000</strong>
                   </p>
-                  <a href="#" class="btn btn-primary w-100 my-cart-btn">Lihat Detail</a>
+                  <a href="./Detail Item/detail.php" class="btn btn-primary w-100 my-cart-btn">Lihat Detail</a>
                 </div>
               </div>
             </div>

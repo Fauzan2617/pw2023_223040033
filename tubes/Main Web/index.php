@@ -57,12 +57,15 @@
             <li class="nav-item">
               <a href="#contact" class="nav-link">Contact</a>
             </li>
+            <li class="nav-item">
+              <strong> <a href="../user/halamanuser.php" class="nav-link">Account</a></strong>
+            </li>
           </ul>
           <div class="search-bar">
             <form>
               <div class="search-bar-box flex">
                 <span class="search-icon flex">
-                  <img src="images/search-icon-dark.png" />
+                  <img src="images/search-icon.png" />
                 </span>
                 <input type="search" class="search-control" placeholder="Search here" />
               </div>
@@ -86,7 +89,7 @@
           </p>
           <div class="btn-group">
             <a href="#" class="btn btn-white">Learn More</a>
-            <a href="#" class="btn btn-light-blue">Sign In</a>
+            <a href="../Log dan Regis/authentication-login.php" class="btn btn-light-blue">Sign In</a>
           </div>
         </div>
         <div class="header-inner-right">

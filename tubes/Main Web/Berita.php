@@ -51,6 +51,9 @@
           <li class="nav-item custom-padding">
             <a class="nav-link active color-text" href="#footer">Contact</a>
           </li>
+          <li class="nav-item custom-padding">
+            <strong> <a class="nav-link active text-black" href="../user/halamanuser.php"> <span class="text-warning">Your</span> Account</a></strong>
+          </li>
         </ul>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
