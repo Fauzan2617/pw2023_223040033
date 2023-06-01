@@ -1,7 +1,13 @@
 <?php
 session_start();
-require '../../functions.php';
 
+require("../../functions.php");
+
+// ambil data di URL
+$id = $_GET["id"];
+
+// query data mahasiswa berdasarkan id
+$detail = query("SELECT * FROM obat WHERE id = $id")[0];
 
 if (!isset($_SESSION["login"])) {
   header("Location:../../Log dan Regis/authentication-login.php");
@@ -31,14 +37,15 @@ if (!isset($_SESSION["login"])) {
       <div class="product-imgs">
         <div class="img-display">
           <div class="img-showcase">
-            <img src="../../" alt="shoe image" />
+            <img src="../img-obat/<?= $dt["gambar"]; ?>" alt="shoe image" />
             <img src="" alt="shoe image" />
           </div>
         </div>
       </div>
       <!-- card right -->
+
       <div class="product-content">
-        <h2 class="product-title">antasida</h2>
+        <h2 class="product-title"><?= $detail["judul"]; ?></h2>
         <a href="#" class="product-link">visit ObatShop</a>
         <div class="product-rating">
           <i class="fas fa-star"></i>
@@ -50,25 +57,15 @@ if (!isset($_SESSION["login"])) {
         </div>
 
         <div class="product-price">
-          <p class="last-price">Old Price: <span>Rp30.000</span></p>
-          <p class="new-price">New Price: <span>Rp28.200 (5%)</span></p>
+          <p class="new-price">New Price: <span>Rp<?= $detail["harga"]; ?></span></p>
         </div>
 
         <div class="product-detail">
           <h2>Deskripsi:</h2>
           <p>
-            antasida adalah obat yang digunakan untuk mengurangi keasaman
-            lambung. Obat-obatan ini digunakan untuk mengobati masalah lambung
-            seperti mual, muntah, dan rasa tidak enak di perut. Ini juga dapat
-            digunakan untuk mencegah dan mengobati tukak lambung.
+            <?= $detail["deskripsi"]; ?>
           </p>
-          <p>
-            Antasida berfungsi dengan cara menetralkan asam lambung dan
-            mengurangi rasa tidak enak di perut. Obat ini umumnya diberikan
-            sebagai tablet, suspensi, atau cairan yang dapat ditelan. Beberapa
-            jenis antasida juga tersedia sebagai pasta atau bubuk yang dapat
-            dilarutkan dalam air.
-          </p>
+
         </div>
 
         <div class="purchase-info">

@@ -17,16 +17,20 @@ if (isset($_POST["user"])) {
   $row = mysqli_fetch_assoc($result);
 
   // Mengambil data ke dalam variabel
+  $id = $row["id"];
   $username = $row["username"];
   $email = $row["email"];
   $alamat = $row["alamat"];
   $no_telepon = $row["nomor_telepon"];
+  $id = $row["id"];
+
 
   // Menyimpan data ke dalam session
   $_SESSION["username"] = $username;
   $_SESSION["email"] = $email;
   $_SESSION["alamat"] = $alamat;
   $_SESSION["nomor_telepon"] = $no_telepon;
+  $_SESSION["id"] = $id;
   header("Location: ../user/halamanuser.php");
   exit;
 }
@@ -57,17 +61,22 @@ if (isset($_POST["login"])) {
     // cek password
     $row = mysqli_fetch_assoc($result);
     if (password_verify($password, $row["password"])) {
+
       // Mengambil data ke dalam variabel
+      $id = $row["id"];
       $username = $row["username"];
       $email = $row["email"];
       $alamat = $row["alamat"];
       $no_telepon = $row["nomor_telepon"];
+      $id = $row["id"];
+
 
       // Menyimpan data ke dalam session
       $_SESSION["username"] = $username;
       $_SESSION["email"] = $email;
       $_SESSION["nomor_telepon"] = $no_telepon;
       $_SESSION["alamat"] = $alamat;
+      $_SESSION["id"] = $id;
       $_SESSION["login"] = true;
       header("Location: ../Main Web");
 

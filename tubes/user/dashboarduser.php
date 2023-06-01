@@ -1,36 +1,38 @@
 <?php
 session_start();
+require("../functions.php");
+
+// ambil data di URL
+$id = $_GET["id"];
+
+// query data mahasiswa berdasarkan id
+$user = query("SELECT * FROM user WHERE id = $id")[0];
+
+
+// cek apakah tombol submit sudah ditekan atau belum
+if (isset($_POST["submit"])) {
+
+  // cek apakah data berhasil diubah atau tidak
+  if (ubah($_POST) > 0) {
+    echo "
+			<script>
+				alert('data berhasil diubah!');
+				document.location.href = 'halamanuser.php';
+			</script>
+		";
+  } else {
+    echo "
+			<script>
+				alert('data gagal diubah!');
+				document.location.href = 'halamanuser.php';
+			</script>
+		";
+  }
+}
 
 
 if (!isset($_SESSION["login"])) {
   header("Location:../Log dan Regis/authentication-login.php ");
-  exit;
-}
-
-// Koneksi ke database
-$conn = mysqli_connect("localhost", "root", "", "rumah sakit");
-$username = $_SESSION["username"];
-if (isset($_POST['submit'])) {
-  // Mengambil data dari form
-
-  global $conn;
-  global $username;
-  $name = $_POST['username'];
-  $password = $_POST['password'];
-  $email = $_POST['email'];
-  $alamat = $_POST['alamat'];
-  $no_telepon = $_POST['nomor_telepon'];
-
-  // Update data user berdasarkan username
-  $query = "UPDATE user SET username = '$name', alamat = '$alamat', email = '$email', nomor_telepon = '$no_telepon',  password = '$password' WHERE username = '$username'";
-  mysqli_query($conn, $query);
-
-  // Redirect ke halaman sukses atau halaman lainnya
-  header("Location: halamanuser.php");
-
-
-
-
   exit;
 }
 
@@ -51,33 +53,30 @@ if (isset($_POST['submit'])) {
 <body>
   <div class="d-flex justify-content-center align-items-center vh-100">
     <form class="shadow w-450 p-3" action="" method="post">
+      <input type="hidden" name="id" value="<?= $user["id"]; ?>">
       <h4 class="display-4 fs-1">Account</h4>
       <br />
 
       <div class="mb-3">
-        <label class="form-label">Name</label>
-        <input type="text" class="form-control" name="username" value="" ? />
-      </div>
-      <div class=" mb-3">
-        <label class="form-label">Password</label>
-        <input type="password" class="form-control" name="password" />
+        <label for="user" class="form-label">Name</label>
+        <input type="text" id="user" class="form-control" name="username" required value="<?= $user["username"]; ?>" ? />
       </div>
       <div class="mb-3">
-        <label class="form-label">Alamat</label>
-        <input type="text" class="form-control" name="alamat" value="" ? />
+        <label for="alamat" class="form-label">Alamat</label>
+        <input type="text" id="alamat" class="form-control" name="alamat" value="<?= $user["alamat"]; ?>" ? />
       </div>
       <div class="mb-3">
-        <label class="form-label">Alamat Email</label>
-        <input type="email" class="form-control" name="email" value="" ? />
+        <label for="email" class="form-label">Alamat Email</label>
+        <input type="email" id="email" class="form-control" name="email" value="<?= $user["email"]; ?>" ? />
       </div>
       <div class="mb-3">
-        <label class="form-label">no telepon</label>
-        <input type="text" class="form-control" name="nomor_telepon" value="" ? />
+        <label for="telepon" class="form-label">no telepon</label>
+        <input type="text" id="telepon" class="form-control" name="nomor_telepon" value="<?= $user["nomor_telepon"]; ?>" ? />
       </div>
 
       <div class="mb-3">
-        <label class="form-label">Profile Picture</label>
-        <input type="file" class="form-control" name="pp" />
+        <label for="profile" class="form-label">Profile Picture</label>
+        <input type="file" id="profile" class="form-control" name="pp" />
       </div>
 
       <button type="submit" name="submit" class="btn btn-primary">Merubah Data</button>

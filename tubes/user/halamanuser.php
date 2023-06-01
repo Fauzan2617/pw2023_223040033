@@ -1,11 +1,17 @@
  <?php
   session_start();
+  require("../functions.php");
 
   // Mengambil data dari session
-  $username = $_SESSION["username"];
-  $email = $_SESSION["email"];
-  $alamat = $_SESSION["alamat"];
-  $nomor_telepon = $_SESSION["nomor_telepon"];
+  $id = $_SESSION["id"];
+
+  $user = mysqli_query($conn, "SELECT * FROM user WHERE id = $id ");
+  $row = mysqli_fetch_assoc($user);
+
+  $username = $row["username"];
+  $email = $row["email"];
+  $alamat = $row["alamat"];
+  $nomor_telepon = $row["nomor_telepon"];
 
 
   if (!isset($_SESSION["login"])) {
@@ -29,6 +35,12 @@
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous" />
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" />
 
+   <style>
+     .color-ubah {
+       color: white;
+     }
+   </style>
+
    <!-- Font Awesome CSS -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
  </head>
@@ -37,11 +49,11 @@
    <!-- HEADER START -->
    <header class="bg-black shadow sticky-top">
      <div class="container d-flex flex-wrap justify-content-between py-2 text-light">
-       <strong> <span class=""> Beranda</span></strong>
+       <a href="../Main Web/index.php" class="text-decoration-none color-ubah"> <strong> <span class=""> Beranda</span></strong></a>
 
        <div>
 
-         Hello <b>Fauzan Dwi</b>
+         <?php echo "<b> $username </b>" ?>
          <a href="logout.php" class="link-warning text-decoration-none fw-bold ms-2">
            <i class="fa-solid fa-sign-out"></i>
            Keluar
@@ -50,7 +62,7 @@
      </div>
    </header>
    <!-- HEADER END -->
-
+   <b></b>
    <!-- CONTENT START -->
    <section>
      <!-- .container start -->
@@ -58,21 +70,21 @@
        <!-- .row start -->
        <div class="row">
          <!-- .col start -->
+
          <div class="col-lg-4">
            <div class="card text-center p-5">
              <div class="card-body">
                <img src="../images/image.png" alt="Profil Picture" class="img img-thumbnail rounded-circle w-50" />
-
                <h2><?php echo $username; ?></h2>
 
-
-
-               <a href="dashboarduser.php"> <button class="btn btn-success btn-sm">
-                   <i class="fa-solid fa-pencil me-1"></i> Ubah Profil
-                 </button></a>
+               <button class="btn btn-success btn-sm ">
+                 <?php foreach ($user as $us) : ?>
+                   <i class="fa-solid fa-pencil me-1"></i> <a href="dashboarduser.php?id=<?= $us["id"]; ?>" class="text-decoration-none"> <span class="color-ubah">Ubah Profil</span>
+                   <?php endforeach; ?></a></button>
              </div>
            </div>
          </div>
+
          <!-- .col end -->
 
          <!-- .col start -->

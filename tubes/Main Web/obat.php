@@ -1,3 +1,12 @@
+<?php
+require("../functions.php");
+$obat = query("SELECT * FROM obat ");
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -82,21 +91,26 @@
           </ul>
         </div>
         <!-- Produk -->
+        <?php $i = 1; ?>
         <div class="col-md-8 col-lg-9">
           <h4 class="text-center mb-4">All Produk</h4>
           <div class="row">
-            <div class="col-sm-6 col-lg-4 mb-3">
-              <div class="card">
-                <a href="img-obat/Actifed.png" data-lightbox="1" data-title="Actifed"><img src="img-obat/Actifed.png" class="card-img-top" alt="..." /></a>
-                <div class="card-body">
-                  <h5 class="card-title text-center">Actifed</h5>
-                  <p class="card-text text-center">
-                    <strong>Rp30.000</strong>
-                  </p>
-                  <a href="./Detail Item/detail.php" class="btn btn-primary w-100 my-cart-btn">Lihat Detail</a>
+
+            <?php foreach ($obat as $ob) : ?>
+              <div class="col-sm-6 col-lg-4 mb-3">
+                <div class="card">
+                  <a href="img-obat/Actifed.png" data-lightbox="1" data-title="Actifed"><img src="img-obat/<?= $ob["gambar"]; ?>" class="card-img-top" alt="..." /></a>
+                  <div class="card-body">
+                    <h5 class="card-title text-center"><?= $ob["judul"]; ?></h5>
+                    <p class="card-text text-center">
+                      <strong>Rp<?= $ob["harga"]; ?></strong>
+                    </p>
+                    <a href="./Detail Item/detail.php?id=<?= $ob["id"]; ?>" class="btn btn-primary w-100 my-cart-btn">Lihat Detail</a>
+                  </div>
                 </div>
               </div>
-            </div>
+            <?php endforeach; ?>
+            <!-- 
             <div class="col-sm-6 col-lg-4 mb-3">
               <div class="card">
                 <a href="img-obat/antasida.webp" data-lightbox="2" data-title="Antasida"><img src="img-obat/antasida.webp" class="card-img-top" alt="..." /></a>
@@ -160,7 +174,7 @@
                   <a href="#" class="btn btn-primary w-100">Lihat Detail</a>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
           <nav class="mt-4 d-flex justify-content-center" aria-label="Page navigation example">
             <ul class="pagination">
