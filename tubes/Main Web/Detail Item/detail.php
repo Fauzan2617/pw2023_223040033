@@ -37,7 +37,7 @@ if (!isset($_SESSION["login"])) {
       <div class="product-imgs">
         <div class="img-display">
           <div class="img-showcase">
-            <img src="../img-obat/<?= $dt["gambar"]; ?>" alt="shoe image" />
+            <img src="../img-obat/<?= $detail["gambar"]; ?>" alt="shoe image" />
             <img src="" alt="shoe image" />
           </div>
         </div>
