@@ -1,5 +1,7 @@
 <?php
+session_start();
 require("../functions.php");
+checkAuthorization('admin');
 
 $datauser = query("SELECT * FROM user");
 $obat = query("SELECT * FROM obat");
@@ -56,7 +58,7 @@ $obat = query("SELECT * FROM obat");
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="pdf.php">
             <span class="icon icon-2"><i class="ri-calendar-2-line"></i></span>
             <span class="sidebar--item">Schedule</span>
           </a>
@@ -82,10 +84,9 @@ $obat = query("SELECT * FROM obat");
       </ul>
       <ul class="sidebar--bottom-items">
         <li>
-          <a href="#">
-            <span class="icon icon-7"><i class="ri-settings-3-line"></i></span>
-            <span class="sidebar--item">Settings</span>
-          </a>
+
+          <button class="add" onclick="generatePDF()"><i class="ri-file-pdf-fill"></i>Reporting PDF</button>
+
         </li>
         <li>
           <a href="../user/logout.php">
@@ -95,7 +96,7 @@ $obat = query("SELECT * FROM obat");
         </li>
       </ul>
     </div>
-    <div class="main--content">
+    <div class="main--content" id="data-wrapper">
       <div class="overview">
         <div class="title">
           <h2 class="section--title">Overview</h2>
@@ -166,7 +167,8 @@ $obat = query("SELECT * FROM obat");
           </div>
         </div>
       </div>
-      <div class="doctors">
+
+      <div class="doctors" id="data-table">
         <div class="title">
           <h2 class="section--title">ObatShop</h2>
           <div class="doctors--right--btns">
@@ -196,7 +198,7 @@ $obat = query("SELECT * FROM obat");
         <div class="title">
           <h2 class="section--title">Data user</h2>
         </div>
-        <div class="table">
+        <div class="table" id="invoice">
           <table>
             <thead>
               <tr>

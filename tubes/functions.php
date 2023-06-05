@@ -16,7 +16,7 @@ function query($query)
 
 function cari($keyword)
 {
-    $query = "SELECT * FROM rumah sakit
+    $query = "SELECT * FROM obat
     WHERE
    judul LIKE '%$keyword%' OR
   harga LIKE '%$keyword%' OR
@@ -102,7 +102,7 @@ function registrasi($data)
     $password = password_hash($password, PASSWORD_DEFAULT);
 
     // tambahkan userbaru ke database
-    mysqli_query($conn, "INSERT INTO user VALUES( NULL,'$username','$alamat','$email','$nomor_telepon', NULL,'$password')");
+    mysqli_query($conn, "INSERT INTO user VALUES( NULL,'user','$username','$alamat','$email','$nomor_telepon', NULL,'$password')");
 
     return mysqli_affected_rows($conn);
 }
@@ -172,4 +172,45 @@ function upload()
     move_uploaded_file($tmpName, '../Main Web/img-obat/' . $namaFileBaru);
 
     return $namaFileBaru;
+}
+
+function login($username, $password)
+{
+    global $conn;
+
+    $escapedUsername = mysqli_real_escape_string($conn, $username);
+    $escapedPassword = mysqli_real_escape_string($conn, $password);
+
+    // Query untuk memeriksa username dan password di database
+    $query = "SELECT * FROM user WHERE username = '$escapedUsername' AND password = '$escapedPassword'";
+    $result = mysqli_query($conn, $query);
+
+    // Periksa apakah ada baris hasil query
+    if (mysqli_num_rows($result) > 0) {
+        // Pengguna berhasil login
+        $user = mysqli_fetch_assoc($result);
+
+        // Simpan peran pengguna dalam sesi
+        $_SESSION['role'] = $user['role'];
+
+        // Tutup koneksi
+        mysqli_close($conn);
+
+        return true;
+    } else {
+        // Pengguna gagal login
+        mysqli_close($conn);
+        return false;
+    }
+}
+
+// Fungsi untuk memeriksa otorisasi pengguna
+function checkAuthorization($requiredRole)
+{
+    // Periksa apakah peran pengguna dalam sesi sesuai dengan peran yang diperlukan
+    if ($_SESSION['role'] !== $requiredRole) {
+        // Pengguna tidak memiliki otorisasi yang cukup
+        header('Location: ../Main Web'); // Ganti dengan halaman kesalahan atau alihkan ke halaman lain
+        exit;
+    }
 }

@@ -6,3 +6,9 @@ menu.onclick = function () {
   sidebar.classList.toggle("active");
   mainContent.classList.toggle("active");
 };
+
+function generatePDF() {
+  const element = document.getElementById("invoice");
+
+  html2pdf().from(element).save();
+}

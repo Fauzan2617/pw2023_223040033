@@ -2,7 +2,6 @@
 require("../functions.php");
 $obat = query("SELECT * FROM obat ");
 
-
 ?>
 
 
@@ -64,9 +63,9 @@ $obat = query("SELECT * FROM obat ");
             <strong> <a class="nav-link active text-black" href="../user/halamanuser.php"> <span class="text-warning">Your</span> Account</a></strong>
           </li>
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-          <button class="btn bg-body" type="submit">Search</button>
+        <form class="d-flex" role="search" action="" method="post">
+          <input name="keyword" type="text" class="search-control" placeholder="Search here" autocomplete="off" id="keyword" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+          <button class="btn bg-body" type="submit" name="cari" id="tombol-cari">Search</button>
         </form>
       </div>
     </div>
@@ -217,6 +216,7 @@ $obat = query("SELECT * FROM obat ");
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
   <!-- My JS -->
   <script src="js/obat.js"></script>
+  <script src="js/script.js"></script>
 </body>
 
 </html>

@@ -2,6 +2,9 @@
 session_start();
 require '../functions.php';
 
+
+
+
 if (isset($_SESSION["login"])) {
   header("Location:../Main Web");
   exit;
@@ -35,8 +38,6 @@ if (isset($_POST["user"])) {
   exit;
 }
 
-
-
 if (isset($_POST["login"])) {
 
   $username = $_POST["username"];
@@ -44,16 +45,20 @@ if (isset($_POST["login"])) {
 
 
 
-  // Memeriksa apakah username dan password sesuai
-  if ($username === 'Admin' && $password === '12345') {
-    // Jika sesuai, alihkan ke halaman admin dashboard
-    header('Location: ../Dashboard');
-    exit();
-  };
-
-
   $result = mysqli_query($conn, "SELECT * FROM user WHERE username = '$username'");
 
+  if (login($username, $password)) {
+    // Pengguna berhasil login
+    header('Location: ../Dashboard'); // Ganti dengan halaman yang sesuai setelah login
+    $row = mysqli_fetch_assoc($result);
+    $user = $row["username"];
+    $pass = $row["password"];
+    $_SESSION["username"] = $user;
+    $_SESSION["password"] = $pass;
+    $_SESSION["login"] = true;
+
+    exit;
+  }
 
   // cek username
   if (mysqli_num_rows($result) === 1) {

@@ -1,3 +1,14 @@
+<?php
+require("../functions.php");
+
+
+// tombol cari ditekan
+if (isset($_POST["cari"])) {
+  $mahasiswa = cari($_POST["keyword"]);
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
