@@ -421,6 +421,9 @@ button[class^="navbar"]:hover {
   font-weight: 500;
 }
 
+.jarak {
+  padding-right: 10px !important;
+}
 /* services section */
 .services .section-head .text-lg {
   color: var(--dark-gray);

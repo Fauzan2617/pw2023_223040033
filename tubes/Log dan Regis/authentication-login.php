@@ -25,7 +25,6 @@ if (isset($_POST["user"])) {
   $email = $row["email"];
   $alamat = $row["alamat"];
   $no_telepon = $row["nomor_telepon"];
-  $id = $row["id"];
 
 
   // Menyimpan data ke dalam session
@@ -53,8 +52,10 @@ if (isset($_POST["login"])) {
     $row = mysqli_fetch_assoc($result);
     $user = $row["username"];
     $pass = $row["password"];
+    $id = $row["id"];
     $_SESSION["username"] = $user;
     $_SESSION["password"] = $pass;
+    $_SESSION["id"] = $id;
     $_SESSION["login"] = true;
 
     exit;
@@ -73,7 +74,6 @@ if (isset($_POST["login"])) {
       $email = $row["email"];
       $alamat = $row["alamat"];
       $no_telepon = $row["nomor_telepon"];
-      $id = $row["id"];
 
 
       // Menyimpan data ke dalam session
@@ -106,6 +106,12 @@ if (isset($_POST["login"])) {
   <title>Dashboard Admin</title>
   <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
   <link rel="stylesheet" href="../src/assets/css/styles.min.css" />
+  <style>
+    body {
+      background: url('../src/assets/images/637aed72469dd_1669000562.jpg') !important;
+      background-size: cover !important;
+    }
+  </style>
 </head>
 
 <body>
@@ -128,11 +134,11 @@ if (isset($_POST["login"])) {
                 <form action="" method="post">
                   <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
-                    <input type="text" name="username" class="form-control" id="username" aria-describedby="emailHelp">
+                    <input type="text" autocomplete="off" name="username" class="form-control" id="username" aria-describedby="emailHelp">
                   </div>
                   <div class="mb-4">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" name="password" class="form-control" id="password">
+                    <input type="password" autocomplete="off" name="password" class="form-control" id="password">
                   </div>
                   <div class="d-flex align-items-center justify-content-between mb-4">
                     <div class="form-check">

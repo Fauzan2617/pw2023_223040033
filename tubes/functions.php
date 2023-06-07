@@ -192,6 +192,7 @@ function login($username, $password)
 
         // Simpan peran pengguna dalam sesi
         $_SESSION['role'] = $user['role'];
+        $_SESSION['id'] = $user['id'];
 
         // Tutup koneksi
         mysqli_close($conn);

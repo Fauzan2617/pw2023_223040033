@@ -18,6 +18,8 @@ $obat = query("SELECT * FROM obat");
   <link rel="icon" a href="images/logo-puskesmas.png" />
 
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+  <script src="js/main.js"></script>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 
@@ -64,7 +66,7 @@ $obat = query("SELECT * FROM obat");
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="../Main Web/index.php">
             <span class="icon icon-3"><i class="ri-user-2-line"></i></span>
             <span class="sidebar--item" style="white-space: nowrap">Reliable Doctor</span>
           </a>
@@ -85,7 +87,6 @@ $obat = query("SELECT * FROM obat");
       <ul class="sidebar--bottom-items">
         <li>
 
-          <button class="add" onclick="generatePDF()"><i class="ri-file-pdf-fill"></i>Reporting PDF</button>
 
         </li>
         <li>
@@ -197,9 +198,11 @@ $obat = query("SELECT * FROM obat");
       <div class="recent--patients">
         <div class="title">
           <h2 class="section--title">Data user</h2>
+          <button class="add" type="submit" onclick="generatePDF()"><i class="ri-file-pdf-fill"></i>Reporting PDF</button>
+
         </div>
-        <div class="table" id="invoice">
-          <table>
+        <div class="table">
+          <table id="invoice">
             <thead>
               <tr>
                 <th>Name</th>
@@ -230,7 +233,24 @@ $obat = query("SELECT * FROM obat");
       </div>
     </div>
   </section>
-  <script src="js/main.js"></script>
+
+
 </body>
+<script>
+  let menu = document.querySelector(".menu");
+  let sidebar = document.querySelector(".sidebar");
+  let mainContent = document.querySelector(".main--content");
+
+  menu.onclick = function() {
+    sidebar.classList.toggle("active");
+    mainContent.classList.toggle("active");
+  };
+
+  function generatePDF() {
+    const element = document.getElementById("invoice");
+
+    html2pdf().from(element).save();
+  }
+</script>
 
 </html>

@@ -1,10 +1,25 @@
 <?php
+session_start();
 require("../functions.php");
 
 
 // tombol cari ditekan
 if (isset($_POST["cari"])) {
   $mahasiswa = cari($_POST["keyword"]);
+}
+
+// wdqwdqwd
+if (isset($_SESSION['role'])) {
+  // Pengguna sudah login
+  if ($_SESSION['role'] == 'admin') {
+    $user_logged_in = 'admin';
+  } elseif ($_SESSION['role'] == 'user') {
+    $user_logged_in = 'user';
+  }
+  $user_logged_in = true;
+} else {
+  // Pengguna belum login
+  $user_logged_in = false;
 }
 ?>
 
@@ -45,9 +60,11 @@ if (isset($_POST["cari"])) {
         </button>
 
         <div class="navbar-collapse bg-white">
+
           <button type="button" class="navbar-hide-btn">
             <img src="images/close-icon.png" />
           </button>
+
           <ul class="navbar-nav">
             <li class="nav-item">
               <a href="#" class="nav-link">Home</a>
@@ -70,10 +87,32 @@ if (isset($_POST["cari"])) {
             <li class="nav-item">
               <a href="#contact" class="nav-link">Contact</a>
             </li>
-            <li class="nav-item">
-              <strong> <a href="../user/halamanuser.php" class="nav-link">Account</a></strong>
-            </li>
+            <!-- <li class="nav-item">
+              <a href="../user/logout.php" class="nav-link">Contact</a>
+            </li> -->
+
+            <?php if (isset($_SESSION['role'])) {
+              $user_logged_in = $_SESSION['role']; ?>
+              $admin = $_SESSION['role']; ?>
+              <?php if ($user_logged_in == 'admin') { ?>
+                <li class="nav-item">
+                  <a class="nav-link jarak" href="../user/halamanuser.php">Halaman User</a>
+                  <a class="nav-link" href="../user/logout.php">Logout</a>
+                </li>
+              <?php } ?> <?php if ($admin == 'user') { ?>
+                <li class="nav-item">
+                  <a class="nav-link jarak" href="../user/halamanuser.php">Halaman User</a>
+                  <a class="nav-link" href="../user/logout.php">Logout</a>
+                </li>
+              <?php } ?>
+
+            <?php } ?>
+
           </ul>
+
+
+
+
           <div class="search-bar">
             <form action="" method="post">
               <div class="search-bar-box flex">
@@ -539,8 +578,31 @@ if (isset($_POST["cari"])) {
   </footer>
   <!-- end of footer  -->
   <!-- custom js -->
+
+  <script>
+    function myFunction() {
+      document.getElementById("fauzan").classList.toggle("show");
+    }
+
+    window.onclick = function(event) {
+      if (!event.target.matches(".dropbtn")) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains("show")) {
+            openDropdown.classList.remove("show");
+          }
+        }
+      }
+    };
+  </script>
+  </script>
   <script src="js/code.jquery.com_jquery-3.7.0.min.js"></script>
+
   <script src="js/script.js"></script>
+
+
 </body>
 
 </html>
