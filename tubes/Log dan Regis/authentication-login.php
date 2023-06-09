@@ -6,7 +6,7 @@ require '../functions.php';
 
 
 if (isset($_SESSION["login"])) {
-  header("Location:../Main Web");
+  header("Location:index.php");
   exit;
 }
 
@@ -83,7 +83,7 @@ if (isset($_POST["login"])) {
       $_SESSION["alamat"] = $alamat;
       $_SESSION["id"] = $id;
       $_SESSION["login"] = true;
-      header("Location: ../Main Web");
+      header("Location: ../index.php");
 
 
       exit;
@@ -104,11 +104,12 @@ if (isset($_POST["login"])) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard Admin</title>
+  <link rel="icon" a href="../Main Web/images/logo-puskesmas.png" />
   <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
   <link rel="stylesheet" href="../src/assets/css/styles.min.css" />
   <style>
     body {
-      background: url('../src/assets/images/637aed72469dd_1669000562.jpg') !important;
+      background: url('../src/assets/images/hospice-1821429_1280.jpg') !important;
       background-size: cover !important;
     }
   </style>
@@ -151,8 +152,8 @@ if (isset($_POST["login"])) {
                   </div>
                   <button class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2" name="login" name="user" type="submit">Sign In</button>
                   <div class="d-flex align-items-center justify-content-center">
-                    <p class="fs-4 mb-0 fw-bold">BuatAkun</p>
-                    <a class="text-primary fw-bold ms-2" href="./authentication-register.php">Create an account</a>
+                    <a class="text-primary fw-bold ms-2" href="../index.php"> <--Beranda< /a>
+                        <a class="text-primary fw-bold ms-2" href="./authentication-register.php">Create an account</a>
                   </div>
                 </form>
               </div>

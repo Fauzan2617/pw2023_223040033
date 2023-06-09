@@ -1,6 +1,16 @@
 <?php
 require("../functions.php");
-$obat = query("SELECT * FROM obat ");
+
+// PAGINATION
+$jumlahDataPerHalaman = 4;
+$jumlahData = count(query("SELECT * FROM obat"));
+$jumlahHalaman = ceil($jumlahData / $jumlahDataPerHalaman);
+$halamanAktif = (isset($_GET["halaman"])) ? $_GET["halaman"] : 1;
+$awalData = ($jumlahDataPerHalaman * $halamanAktif) - $jumlahDataPerHalaman;
+
+
+
+$obat = query("SELECT * FROM obat LIMIT $awalData, $jumlahDataPerHalaman ");
 
 ?>
 
@@ -35,16 +45,16 @@ $obat = query("SELECT * FROM obat ");
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item px-2">
-            <a class="nav-link active color-text fonts" aria-current="page" href="index.php">Home</a>
+            <a class="nav-link active color-text fonts" aria-current="page" href="../index.php">Home</a>
           </li>
           <li class="nav-item px-2">
-            <a class="nav-link active color-text line-hover" href="index.php">Profil</a>
+            <a class="nav-link active color-text line-hover" href="../index.php">Profil</a>
           </li>
           <li class="nav-item px-2">
-            <a class="nav-link active color-text" href="index.php">Layanan</a>
+            <a class="nav-link active color-text" href="../index.php">Layanan</a>
           </li>
           <li class="nav-item px-2">
-            <a class="nav-link active color-text" href="index.php">Dokter</a>
+            <a class="nav-link active color-text" href="../index.php">Dokter</a>
           </li>
 
           <li class="nav-item px-2">
@@ -110,17 +120,25 @@ $obat = query("SELECT * FROM obat ");
               </div>
             <?php endforeach; ?>
           </div>
+          <!-- navigasi -->
+
           <nav class="mt-4 d-flex justify-content-center" aria-label="Page navigation example">
             <ul class="pagination">
               <li class="page-item">
-                <a class="page-link" href="#">Previous</a>
+                <a class="page-link" href="?halaman=<?= $halamanAktif - 1; ?>">Previous</a>
               </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-              </li>
+              <?php for ($i = 1; $i <= $jumlahHalaman; $i++) : ?>
+                <?php if ($i == $halamanAktif) : ?>
+                  <li class="page-item"><a class="page-link" href="?halaman=<?= $i; ?>"><?= $i; ?></a></li>
+                <?php else : ?>
+                  <li class="page-item"><a class="page-link" href="?halaman=<?= $i; ?>"><?= $i; ?></a></li>
+                <?php endif; ?>
+              <?php endfor; ?>
+              <?php if ($halamanAktif < $jumlahHalaman) : ?>
+                <li class="page-item">
+                  <a class="page-link" href="?halaman=<?= $halamanAktif + 1; ?>">Next</a>
+                </li>
+              <?php endif; ?>
             </ul>
           </nav>
         </div>

@@ -5,6 +5,11 @@ checkAuthorization('admin');
 
 $datauser = query("SELECT * FROM user");
 $obat = query("SELECT * FROM obat");
+$obat1 = mysqli_query($conn, "SELECT * FROM obat ");
+$userid = mysqli_query($conn, "SELECT * FROM user ");
+
+
+$row = mysqli_fetch_assoc($obat1);
 ?>
 
 <!DOCTYPE html>
@@ -62,13 +67,13 @@ $obat = query("SELECT * FROM obat");
         <li>
           <a href="pdf.php">
             <span class="icon icon-2"><i class="ri-calendar-2-line"></i></span>
-            <span class="sidebar--item">Schedule</span>
+            <span class="sidebar--item">Reporting PDF</span>
           </a>
         </li>
         <li>
-          <a href="../Main Web/index.php">
+          <a href="../index.php">
             <span class="icon icon-3"><i class="ri-user-2-line"></i></span>
-            <span class="sidebar--item" style="white-space: nowrap">Reliable Doctor</span>
+            <span class="sidebar--item" style="white-space: nowrap">Index Web</span>
           </a>
         </li>
         <li>
@@ -181,17 +186,20 @@ $obat = query("SELECT * FROM obat");
           </div>
         </div>
 
-        <div class="doctors--cards">
-          <?php foreach ($obat as $ob) : ?>
-            <a href="#" class="doctor--card">
-              <div class="img--box--cover">
-                <div class="img--box">
-                  <img src="../Main Web/img-obat/<?= $ob["gambar"]; ?>" alt="" />
+
+        <div class="table2 table">
+          <div class="doctors--cards">
+            <?php foreach ($obat as $ob) : ?>
+              <a href="ubahobat.php?id=<?= $ob["id"]; ?>" class="doctor--card">
+                <div class="img--box--cover">
+                  <div class="img--box">
+                    <img src="../Main Web/img-obat/<?= $ob["gambar"]; ?>" alt="" />
+                  </div>
                 </div>
-              </div>
-              <p class="scheduled"><?= $ob["judul"]; ?></p>
-            </a>
-          <?php endforeach; ?>
+                <p class="scheduled"><?= $ob["judul"]; ?></p>
+              </a>
+            <?php endforeach; ?>
+          </div>
         </div>
 
       </div>
@@ -223,7 +231,7 @@ $obat = query("SELECT * FROM obat");
 
                   <td class="pending">pending</td>
                   <td>
-                    <span><i class="ri-edit-line edit"></i><i class="ri-delete-bin-line delete"></i></span>
+                    <a href="hapus.php?id=<?= $user["id"]; ?> " onclick="return confirm('yakin?');"> <span><i class="ri-delete-bin-line delete"></i></span></a>
                   </td>
                 </tr>
               <?php endforeach; ?>

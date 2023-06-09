@@ -1,6 +1,6 @@
 <?php
 session_start();
-require("../functions.php");
+require("functions.php");
 
 
 // tombol cari ditekan
@@ -8,19 +8,7 @@ if (isset($_POST["cari"])) {
   $mahasiswa = cari($_POST["keyword"]);
 }
 
-// wdqwdqwd
-if (isset($_SESSION['role'])) {
-  // Pengguna sudah login
-  if ($_SESSION['role'] == 'admin') {
-    $user_logged_in = 'admin';
-  } elseif ($_SESSION['role'] == 'user') {
-    $user_logged_in = 'user';
-  }
-  $user_logged_in = true;
-} else {
-  // Pengguna belum login
-  $user_logged_in = false;
-}
+
 ?>
 
 
@@ -34,13 +22,13 @@ if (isset($_SESSION['role'])) {
   <title>Sehat plus</title>
 
 
-  <link rel="icon" a href="images/logo-puskesmas.png" />
+  <link rel="icon" a href="Main Web/images/logo-puskesmas.png" />
   <!-- font awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- normalize css -->
-  <link rel="stylesheet" href="css/nomal.css" />
+  <link rel="stylesheet" href="Main Web/css/nomal.css" />
   <!-- custom css -->
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="Main Web/css/style.css" />
 </head>
 
 <body>
@@ -53,16 +41,16 @@ if (isset($_SESSION['role'])) {
     <nav class="navbar bg-blue">
       <div class="container flex">
         <a href="index.html" class="navbar-brand">
-          <img src="images/logo-puskesmas.png" alt="site logo" />
+          <img src="Main Web/images/logo-puskesmas.png" alt="site logo" />
         </a>
         <button type="button" class="navbar-show-btn">
-          <img src="images/ham-menu-icon.png" />
+          <img src="Main Web/images/ham-menu-icon.png" />
         </button>
 
         <div class="navbar-collapse bg-white">
 
           <button type="button" class="navbar-hide-btn">
-            <img src="images/close-icon.png" />
+            <img src="Main Web/images/close-icon.png" />
           </button>
 
           <ul class="navbar-nav">
@@ -79,34 +67,17 @@ if (isset($_SESSION['role'])) {
               <a href="#doc-panel" class="nav-link">Dokter</a>
             </li>
             <li class="nav-item">
-              <a target="_blank" href="obat.php" class="nav-link">ObatShop</a>
+              <a target="_blank" href="Main Web/obat.php" class="nav-link">ObatShop</a>
             </li>
             <li class="nav-item">
-              <a target="_blank" href="Berita.php" class="nav-link">Berita</a>
+              <a target="_blank" href="Main Web/Berita.php" class="nav-link">Berita</a>
             </li>
             <li class="nav-item">
               <a href="#contact" class="nav-link">Contact</a>
             </li>
-            <!-- <li class="nav-item">
-              <a href="../user/logout.php" class="nav-link">Contact</a>
-            </li> -->
-
-            <?php if (isset($_SESSION['role'])) {
-              $user_logged_in = $_SESSION['role']; ?>
-              $admin = $_SESSION['role']; ?>
-              <?php if ($user_logged_in == 'admin') { ?>
-                <li class="nav-item">
-                  <a class="nav-link jarak" href="../user/halamanuser.php">Halaman User</a>
-                  <a class="nav-link" href="../user/logout.php">Logout</a>
-                </li>
-              <?php } ?> <?php if ($admin == 'user') { ?>
-                <li class="nav-item">
-                  <a class="nav-link jarak" href="../user/halamanuser.php">Halaman User</a>
-                  <a class="nav-link" href="../user/logout.php">Logout</a>
-                </li>
-              <?php } ?>
-
-            <?php } ?>
+            <li class="nav-item">
+              <a href="user/logout.php" class="nav-link">Logout</a>
+            </li>
 
           </ul>
 
@@ -117,7 +88,7 @@ if (isset($_SESSION['role'])) {
             <form action="" method="post">
               <div class="search-bar-box flex">
                 <span class="search-icon flex">
-                  <button type="submit" name="cari" id="tombol-cari"> <img src="images/search-icon.png" /></button>
+                  <button type="submit" name="cari" id="tombol-cari"> <img src="Main Web/images/search-icon.png" /></button>
                 </span>
                 <input name="keyword" type="text" class="search-control" placeholder="Search here" autocomplete="off" id="keyword" />
               </div>
@@ -139,13 +110,16 @@ if (isset($_SESSION['role'])) {
             "Pelayanan rumah sakit terbaik memberikan perawatan terbaik bagi
             pasien dengan mengutamakan kualitas, keamanan, dan kenyamanan."
           </p>
-          <div class="btn-group">
-            <a href="#" class="btn btn-white">Learn More</a>
-            <a href="../Log dan Regis/authentication-login.php" class="btn btn-light-blue">Sign In</a>
-          </div>
+          <?php if (!isset($_SESSION["login"])) { ?>
+            <div class="btn-group">
+              <a href="#" class="btn btn-white">Learn More</a>
+
+              <a href="Log dan Regis/authentication-login.php" class="btn btn-light-blue">Sign In</a>
+            </div>
+          <?php } ?>
         </div>
         <div class="header-inner-right">
-          <img src="images/dokter 2.png" />
+          <img src="Main Web/images/dokter 2.png" />
         </div>
       </div>
     </div>
@@ -175,7 +149,7 @@ if (isset($_SESSION['role'])) {
             </div>
             <div class="about-right flex">
               <div class="img">
-                <img src="images/dokter-1.png" />
+                <img src="Main Web/images/dokter-1.png" />
               </div>
             </div>
           </div>
@@ -208,14 +182,14 @@ if (isset($_SESSION['role'])) {
             </p>
             <div class="line-art flex">
               <div></div>
-              <img src="images/4-dots.png" />
+              <img src="Main Web/images/4-dots.png" />
               <div></div>
             </div>
           </div>
           <div class="services-inner text-center grid">
             <article class="service-item">
               <div class="icon">
-                <img src="images/service-icon-1.png" />
+                <img src="Main Web/images/service-icon-1.png" />
               </div>
               <h3>Pemantauan Jantung</h3>
               <p class="text text-sm">
@@ -227,7 +201,7 @@ if (isset($_SESSION['role'])) {
 
             <article class="service-item">
               <div class="icon">
-                <img src="images/service-icon-2.png" />
+                <img src="Main Web/images/service-icon-2.png" />
               </div>
               <h3>Layanan Medis</h3>
               <p class="text text-sm">
@@ -239,7 +213,7 @@ if (isset($_SESSION['role'])) {
 
             <article class="service-item">
               <div class="icon">
-                <img src="images/service-icon-3.png" />
+                <img src="Main Web/images/service-icon-3.png" />
               </div>
               <h3>Bantuan Darurat</h3>
               <p class="text text-sm">
@@ -250,7 +224,7 @@ if (isset($_SESSION['role'])) {
 
             <article class="service-item">
               <div class="icon">
-                <img src="images/service-icon-4.png" />
+                <img src="Main Web/images/service-icon-4.png" />
               </div>
               <h3>Tindakan Pertama</h3>
               <p class="text text-sm">
@@ -268,7 +242,7 @@ if (isset($_SESSION['role'])) {
       <section id="banner-two" class="banner-two text-center">
         <div class="container grid">
           <div class="banner-two-left">
-            <img src="images/banner-3.png" />
+            <img src="Main Web/images/banner-3.png" />
           </div>
           <div class="banner-two-right">
             <p class="lead text-white">
@@ -294,7 +268,7 @@ if (isset($_SESSION['role'])) {
           <div class="doc-panel-inner grid">
             <div class="doc-panel-item">
               <div class="img flex">
-                <img src="images/doc-1.png" alt="doctor image" />
+                <img src="Main Web/images/doc-1.png" alt="doctor image" />
                 <div class="info text-center bg-blue text-white flex">
                   <p class="lead">samuel goe</p>
                   <p class="text-lg">Medicine</p>
@@ -304,7 +278,7 @@ if (isset($_SESSION['role'])) {
 
             <div class="doc-panel-item">
               <div class="img flex">
-                <img src="images/doc-2.png" alt="doctor image" />
+                <img src="Main Web/images/doc-2.png" alt="doctor image" />
                 <div class="info text-center bg-blue text-white flex">
                   <p class="lead">elizabeth ira</p>
                   <p class="text-lg">Cardiology</p>
@@ -314,7 +288,7 @@ if (isset($_SESSION['role'])) {
 
             <div class="doc-panel-item">
               <div class="img flex">
-                <img src="images/doc-3.png" alt="doctor image" />
+                <img src="Main Web/images/doc-3.png" alt="doctor image" />
                 <div class="info text-center bg-blue text-white flex">
                   <p class="lead">tanya collins</p>
                   <p class="text-lg">Medicine</p>
@@ -386,7 +360,7 @@ if (isset($_SESSION['role'])) {
           <div class="posts-inner grid">
             <article class="post-item bg-white">
               <div class="img">
-                <img src="images/post-1.jpg" />
+                <img src="Main Web/images/post-1.jpg" />
               </div>
               <div class="content">
                 <h4>
@@ -411,7 +385,7 @@ if (isset($_SESSION['role'])) {
 
             <article class="post-item bg-white">
               <div class="img">
-                <img src="images/post-2.jpg" />
+                <img src="Main Web/images/post-2.jpg" />
               </div>
               <div class="content">
                 <h4>
@@ -436,7 +410,7 @@ if (isset($_SESSION['role'])) {
 
             <article class="post-item bg-white">
               <div class="img">
-                <img src="images/post-3.jpg" />
+                <img src="Main Web/images/post-3.jpg" />
               </div>
               <div class="content">
                 <h4>
@@ -507,7 +481,7 @@ if (isset($_SESSION['role'])) {
         <div class="footer-item">
           <h3 class="footer-head">about us</h3>
           <div class="icon">
-            <img src="images/logo-puskesmas.png" />
+            <img src="Main Web/images/logo-puskesmas.png" />
           </div>
           <p class="text text-md"></p>
           <address>
@@ -598,9 +572,9 @@ if (isset($_SESSION['role'])) {
     };
   </script>
   </script>
-  <script src="js/code.jquery.com_jquery-3.7.0.min.js"></script>
+  <script src="Main Web/js/code.jquery.com_jquery-3.7.0.min.js"></script>
 
-  <script src="js/script.js"></script>
+  <script src="Main Web/js/script.js"></script>
 
 
 </body>

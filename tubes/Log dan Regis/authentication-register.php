@@ -3,7 +3,7 @@ session_abort();
 require '../functions.php';
 
 if (isset($_SESSION["login"])) {
-  header("Location:../Main Web");
+  header("Location:index.php");
   exit;
 }
 

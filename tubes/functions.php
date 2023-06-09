@@ -26,6 +26,46 @@ function cari($keyword)
     return query($query);
 }
 
+function hapus($id)
+{
+    global $conn;
+    mysqli_query($conn, "DELETE FROM user WHERE id = $id");
+    return mysqli_affected_rows($conn);
+}
+
+function ubahobat($data)
+{
+    global $conn;
+
+    $id = $data["id"];
+    $obat = htmlspecialchars($data["namaobat"]);
+    $harga = htmlspecialchars($data["harga"]);
+    $deskripsi = htmlspecialchars($data["deskripsi"]);
+    $gambar = htmlspecialchars($data["gambar"]);
+    $gambarLama = htmlspecialchars($data["gambarLama"]);
+
+
+    // cek apakah user pilih gambar baru atau tidak
+    if ($_FILES['gambar']['error'] === 4) {
+        $gambar = $gambarLama;
+    } else {
+        $gambar = upload();
+    }
+
+    $query = "UPDATE obat SET
+				judul = '$obat',
+				harga = '$harga',
+				deskripsi = '$deskripsi',
+				gambar = '$gambar'
+			  WHERE id = $id
+			";
+    // var_dump($query); die;
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
+
 
 function ubah($data)
 {
@@ -36,6 +76,10 @@ function ubah($data)
     $alamat = htmlspecialchars($data["alamat"]);
     $email = htmlspecialchars($data["email"]);
     $nomor = htmlspecialchars($data["nomor_telepon"]);
+
+
+
+
 
 
     $query = "UPDATE user SET
