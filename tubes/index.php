@@ -453,9 +453,10 @@ if (isset($_POST["cari"])) {
                 anda atau orang sekitar anda !
               </p>
             </div>
-            <form>
+            <form action="https://formsubmit.co/mfauzandwiputera10@gmail.com" method="post">
               <div class="form-element">
                 <input type="text" class="form-control" placeholder="Your name" />
+                <input type="hidden" name="_captcha" value="false">
               </div>
               <div class="form-element">
                 <input type="email" class="form-control" placeholder="Your email" />
